@@ -5,7 +5,7 @@ name := "sbt-frege"
 // build
 sbtPlugin := true
 enablePlugins(SbtPlugin)
-scalaVersion := "2.12.20"
+scalaVersion := "2.12.21"
 crossScalaVersions += "3.3.7"
 pluginCrossBuild / sbtVersion := {
   scalaBinaryVersion.value match {
