@@ -30,6 +30,7 @@ object Compat {
   def fregeTarget(scope: Configuration) = scope / SbtFregec.autoImport.fregeTarget
   def sourceDirectory(scope: Configuration) = scope / sbt.Keys.sourceDirectory
   def sourceGenerators(scope: Configuration) = scope / sbt.Keys.sourceGenerators
+  def watchTriggers(scope: Configuration) = scope / compile / sbt.nio.Keys.watchTriggers
 
   def managedJars(config: Configuration): Initialize[Task[Seq[File]]] =
     Def.task {

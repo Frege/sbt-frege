@@ -30,18 +30,18 @@ def awaitClosed(port: Int, retries: Int = 40): Unit =
     }
   }
 
-val await = inputKey[Unit]("await")
+val awaitPort = inputKey[Unit]("await a listening port")
 
-await := {
+awaitPort := {
   complete.DefaultParsers.spaceDelimited("<arg>").parsed.toList match {
     case List(port) => awaitOpen(port.toInt)
     case _ => throw new Exception("Usage: await <port>")
   }
 }
 
-val awaitClosed = inputKey[Unit]("awaitClosed")
+val awaitPortClosed = inputKey[Unit]("await a closed port")
 
-awaitClosed := {
+awaitPortClosed := {
   complete.DefaultParsers.spaceDelimited("<arg>").parsed.toList match {
     case List(port) => awaitClosed(port.toInt)
     case _ => throw new Exception("Usage: awaitClosed <port>")
