@@ -1,5 +1,5 @@
 $ absent plainFrege/target/frege/com/earldouglas/helloworld/HelloWorld.java
-$ absent javaCallsFrege/target/scala-2.12/classes/com/earldouglas/helloworld/HelloFrege.class
+> javaCallsFrege/Compile/checkClassFile absent com/earldouglas/helloworld/HelloFrege.class
 > compile
 $ exists plainFrege/target/frege/com/earldouglas/helloworld/HelloWorld.java
-$ exists javaCallsFrege/target/scala-2.12/classes/com/earldouglas/helloworld/HelloFrege.class
+> javaCallsFrege/Compile/checkClassFile exists com/earldouglas/helloworld/HelloFrege.class

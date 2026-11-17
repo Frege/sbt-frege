@@ -4,8 +4,15 @@ on: [push, pull_request]
 
 jobs:
   build:
-
     runs-on: ubuntu-24.04
+    strategy:
+      fail-fast: false
+      matrix:
+        java: [8, 17, 21, 25]
+        scala: [2.12.x, 3.x]
+        exclude:
+          - java: 8
+            scala: 3.x
 
     steps:
 
@@ -13,10 +20,10 @@ jobs:
 
     - uses: actions/setup-java@v4
       with:
-        java-version: 8
+        java-version: ${{ matrix.java }}
         distribution: temurin
         cache: sbt
 
     - uses: sbt/setup-sbt@v1
 
-    - run: sbt scripted +test +publishLocal
+    - run: sbt "++${{ matrix.scala }}" test scripted publishLocal

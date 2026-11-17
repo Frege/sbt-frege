@@ -1,5 +1,6 @@
-> jetty:quickstart
-> await 8080
+> warStart
+> awaitPort 8080
 > get http://localhost:8080/hello 200
-> jetty:stop
+> warStop
+> awaitPortClosed 8080
 -> get http://localhost:8080/hello 200

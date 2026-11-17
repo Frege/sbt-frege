@@ -2,6 +2,7 @@ package com.earldouglas.sbt.frege
 
 import sbt._
 import sbt.Keys._
+import sbt.nio.file.Glob
 
 object SbtFregec extends AutoPlugin {
 
@@ -60,7 +61,7 @@ object SbtFregec extends AutoPlugin {
         }
       cached(((Compat.fregeSource(scope)).value ** "*.fr").get().toSet).toSeq
     }.taskValue,
-    watchSources ++= ((Compat.fregeSource(scope)).value ** "*").get().map(x=>WatchSource(x))
+    Compat.watchTriggers(scope) += Glob((Compat.fregeSource(scope)).value.toPath, "**")
   )
 
   override def projectSettings =
@@ -69,7 +70,7 @@ object SbtFregec extends AutoPlugin {
     Seq(
       fregeOptions := Seq("-j"),
       fregeCompiler := "frege.compiler.Main",
-      fregeLibrary := "org.frege-lang" % "frege" % "3.24.100.1" classifier "jdk8",
+      fregeLibrary := "org.frege-lang" % "frege" % "3.24.100.1" `classifier` "jdk8",
       libraryDependencies += fregeLibrary.value
     )
 

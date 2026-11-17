@@ -6,17 +6,19 @@ name := "sbt-frege"
 sbtPlugin := true
 enablePlugins(SbtPlugin)
 scalaVersion := "2.12.21"
-crossScalaVersions += "3.3.8"
+crossScalaVersions := Seq("2.12.21", "3.9.0")
 pluginCrossBuild / sbtVersion := {
   scalaBinaryVersion.value match {
-    case "2.12" => (pluginCrossBuild / sbtVersion).value
-    case _      => "2.0.0-M2"
+    case "2.12" => "1.12.13"
+    case _      => "2.1.0"
   }
 }
 scalacOptions ++= {
   scalaBinaryVersion.value match {
     case "2.12" =>
       Seq(
+        "-Xsource:3",
+        "-release:8",
         "-Ywarn-unused-import",
         "-Xlint",
         "-Ypartial-unification",
@@ -34,8 +36,10 @@ scalacOptions ++= Seq( "-deprecation"
                      , "-language:higherKinds"
                      , "-language:implicitConversions"
                      , "-unchecked"
-                     , "-Xfatal-warnings"
                      )
+scalacOptions += {
+  if (scalaBinaryVersion.value == "3") "-Werror" else "-Xfatal-warnings"
+}
 
 // publish to Sonatype, https://www.scala-sbt.org/release/docs/Using-Sonatype.html
 credentials := List(Credentials(Path.userHome / ".sbt" / "sonatype_credentials"))
